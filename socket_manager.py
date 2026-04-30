@@ -2,11 +2,13 @@ import socketio
 from models import rooms
 from utils import generate_password, sanitize_message
 from datetime import datetime
+import pytz
 
 sio = socketio.AsyncServer(async_mode="asgi", cors_allowed_origins="*")
 
 def get_timestamp():
-    return datetime.now().strftime("%I:%M %p")
+    ist = pytz.timezone("Asia/Kolkata")
+    return datetime.now(ist).strftime("%I:%M %p")
 
 @sio.event
 async def connect(sid, environ):
